@@ -292,16 +292,76 @@ with tab4:
     st.header("👤 Análisis de Residuos Per Cápita")
 
     st.info(
-    "La generación per cápita (GPC) representa la cantidad promedio de residuos domiciliarios generados por habitante en un día (kg/hab/día)."
-)
+        "La generación per cápita (GPC) representa la cantidad promedio de residuos domiciliarios generados por habitante en un día (kg/hab/día)."
+    )
 
-    st.write("""
-    La generación per cápita representa la cantidad promedio de residuos
-    generados por habitante por día.
-    """)
+    st.subheader("Filtros")
+
+    col1, col2, col3 = st.columns(3)
+
+    departamentos_pc = ["Todos"] + sorted(
+        df["DEPARTAMENTO"].dropna().unique()
+    )
+
+    with col1:
+        departamento_pc = st.selectbox(
+            "Departamento",
+            departamentos_pc,
+            key="dep_pc"
+        )
+
+    df_pc = df.copy()
+
+    if departamento_pc != "Todos":
+        df_pc = df_pc[
+            df_pc["DEPARTAMENTO"] == departamento_pc
+        ]
+
+    provincias_pc = ["Todos"] + sorted(
+        df_pc["PROVINCIA"].dropna().unique()
+    )
+
+    with col2:
+        provincia_pc = st.selectbox(
+            "Provincia",
+            provincias_pc,
+            key="prov_pc"
+        )
+
+    if provincia_pc != "Todos":
+        df_pc = df_pc[
+            df_pc["PROVINCIA"] == provincia_pc
+        ]
+
+    distritos_pc = ["Todos"] + sorted(
+        df_pc["DISTRITO"].dropna().unique()
+    )
+
+    with col3:
+        distrito_pc = st.selectbox(
+            "Distrito",
+            distritos_pc,
+            key="dist_pc"
+        )
+
+    if distrito_pc != "Todos":
+        df_pc = df_pc[
+            df_pc["DISTRITO"] == distrito_pc
+        ]
+
+    st.success(
+        f"Mostrando información de: {departamento_pc} | {provincia_pc} | {distrito_pc}"
+    )
+
+    st.metric(
+        "Promedio GPC",
+        f"{df_pc['GPC_DOM'].mean():.2f} kg/hab/día"
+    )
+
+    st.markdown("---")
 
     percapita_dep = (
-        df.groupby("DEPARTAMENTO")["GPC_DOM"]
+        df_pc.groupby("DEPARTAMENTO")["GPC_DOM"]
         .mean()
         .sort_values(ascending=False)
     )
@@ -324,11 +384,6 @@ with tab4:
 
     st.pyplot(fig6)
 
-    st.metric(
-        "Promedio Nacional",
-        f"{df['GPC_DOM'].mean():.2f} kg/hab/día"
-    )
-
     st.markdown("---")
 
     st.subheader(
@@ -336,7 +391,7 @@ with tab4:
     )
 
     top_pc = (
-        df.groupby("DISTRITO")["GPC_DOM"]
+        df_pc.groupby("DISTRITO")["GPC_DOM"]
         .mean()
         .sort_values(ascending=False)
         .head(10)
