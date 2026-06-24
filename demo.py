@@ -62,8 +62,7 @@ with tab1:
 
     ### Fuente de Datos
 
-    Datos de generación de residuos municipales del Perú
-correspondientes al periodo 2014-2024.
+    Datos de generación de residuos municipales del Perú correspondientes al periodo 2014-2024.
     """)
 
 
