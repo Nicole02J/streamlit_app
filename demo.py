@@ -135,7 +135,7 @@ with tab2:
 
     c2.metric(
         "Residuos Municipales",
-        f"{df_filtrado['QRESIDUOS_MUN'].sum():,.2f}"
+        f"{df_filtrado['QRESIDUOS_MUN'].sum():,.2f} t"
     )
 
     c3.metric(
@@ -167,7 +167,7 @@ with tab2:
 
         ax1.set_title("Evolución por Año")
         ax1.set_xlabel("Periodo")
-        ax1.set_ylabel("Residuos Municipales")
+        ax1.set_ylabel("Residuos Municipales (toneladas)")
         ax1.grid(True)
 
         st.pyplot(fig1)
@@ -217,8 +217,8 @@ with tab2:
 
     ax3.set_title("Top 10 Distritos")
     ax3.set_xlabel("Distrito")
-    ax3.set_ylabel("Residuos Municipales")
-
+    ax3.set_ylabel("Residuos Municipales (toneladas)")
+    
     plt.xticks(rotation=45)
 
     st.pyplot(fig3)
@@ -279,8 +279,8 @@ with tab3:
     )
 
     ax5.set_xlabel("Departamentos")
-    ax5.set_ylabel("Cantidad")
-
+    ax5.set_ylabel("Residuos Domiciliarios (toneladas)")
+    
     plt.xticks(rotation=90)
 
     st.pyplot(fig5)
@@ -290,6 +290,10 @@ with tab3:
 with tab4:
 
     st.header("👤 Análisis de Residuos Per Cápita")
+
+    st.info(
+    "La generación per cápita (GPC) representa la cantidad promedio de residuos domiciliarios generados por habitante en un día (kg/hab/día)."
+)
 
     st.write("""
     La generación per cápita representa la cantidad promedio de residuos
@@ -348,6 +352,8 @@ with tab4:
     ax7.set_title(
         "Top 10 Distritos por Generación Per Cápita"
     )
+
+    ax7.set_ylabel("kg/hab/día")
 
     plt.xticks(rotation=45)
 
