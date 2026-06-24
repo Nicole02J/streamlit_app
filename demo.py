@@ -9,9 +9,7 @@ st.set_page_config(
 
 df = pd.read_excel("Dataset.xlsx")
 
-# =========================
-# TABS
-# =========================
+
 
 tab1, tab2, tab3, tab4 = st.tabs([
     "📖 Introducción",
@@ -20,9 +18,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
     "📋 Datos"
 ])
 
-# =========================
-# TAB 1
-# =========================
+
 
 with tab1:
 
@@ -45,9 +41,7 @@ with tab1:
     - Identificar los distritos con mayor generación de residuos.
     """)
 
-# =========================
-# TAB 2
-# =========================
+
 
 with tab2:
 
@@ -224,9 +218,6 @@ with tab2:
 
     st.pyplot(fig4)
 
-# =========================
-# TAB 3
-# =========================
 
 with tab3:
 
@@ -268,9 +259,6 @@ with tab3:
 
     st.pyplot(fig5)
 
-# =========================
-# TAB 4
-# =========================
 
 with tab4:
 
